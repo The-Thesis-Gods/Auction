@@ -1,5 +1,9 @@
+import uuid
+
+
 class User:
     def __init__(self, name, email, password, home_address, phone_number):
+        self.member_id = str(uuid.uuid4())
         self.name = name
         self.email = email
         self.__password = password

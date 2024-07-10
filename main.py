@@ -14,7 +14,7 @@ def main():
         elif user_input == "2":
             login()
         elif user_input == "3":
-            print("Goodbye!")
+            print("Thank you for visiting the online marketplace. Goodbye!")
             break
         else:
             print("Invalid input. Please try again.")

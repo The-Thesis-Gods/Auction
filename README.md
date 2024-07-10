@@ -15,13 +15,13 @@ Welcome to the Online Marketplace! This application allows users to create accou
 1. Clone the repository to your local machine:
 
     ```sh
-    git clone https://github.com/yourusername/online-marketplace.git
+    git clone https://github.com/yourusername/Auction.git
     ```
 
 2. Navigate to the project directory:
 
     ```sh
-    cd online-marketplace
+    cd Auction
     ```
 
 3. Ensure you have Python installed (version 3.x is recommended).

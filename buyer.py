@@ -1,7 +1,7 @@
-import user
+from user import User
 
 
-class Buyer(user):
+class Buyer(User):
     def __init__(self, name, email, password, home_address, phone_number, shipping_address):
         super().__init__(name, email, password, home_address, phone_number)
         self.shipping_address = shipping_address

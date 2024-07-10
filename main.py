@@ -1,5 +1,6 @@
 import buyer as customer
 import seller as merchant
+
 users = {}  # Global dictionary to store users
 
 
@@ -53,8 +54,44 @@ def login():
     user = users.get(email)
     if user and user.get_password() == password:
         print(f"Welcome back, {user.name}!")
+
+        if isinstance(user, customer.Buyer):
+            buyer_actions()
+        elif isinstance(user, merchant.Seller):
+            seller_actions()
     else:
         print("Invalid email or password. Please try again.")
+
+
+def buyer_actions():
+    while True:
+        buyer_menu()
+        break
+
+
+def seller_actions():
+    while True:
+        seller_menu()
+        break
+
+
+def buyer_menu():
+    print("1. View items")
+    print("2. Add item to cart")
+    print("3. Remove item from cart")
+    print("4. View cart")
+    print("5. Checkout")
+    print("6. Log out")
+    print("Please enter a number to select an option:")
+
+
+def seller_menu():
+    print("1. View items")
+    print("2. Add item")
+    print("3. Edit item")
+    print("4. Delete item")
+    print("5. Log out")
+    print("Please enter a number to select an option:")
 
 
 if __name__ == '__main__':

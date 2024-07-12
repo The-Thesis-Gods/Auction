@@ -1,17 +1,4 @@
-class User:
-    def __init__(self, name, email, password, home_address, phone_number):
-        self.name = name
-        self.email = email
-        self.password = password
-        self.home_address = home_address
-        self.phone_number = phone_number
-
-    def account_creation(self):
-        self.name = input("Enter your name: ")
-        self.email = input("Enter your email: ")
-        self.password = input("Enter your password: ")
-        self.home_address = input("Enter your home address: ")
-        self.phone_number = input("Enter your phone number: ")
+from user import User
 
 class Seller(User):
     def __init__(self, name, email, password, home_address, phone_number, bank_account, routing_number):

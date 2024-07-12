@@ -1,4 +1,5 @@
 from user import User
+import re
 
 
 class Seller(User):
@@ -22,8 +23,25 @@ class Seller(User):
 
     def account_creation(self):
         super().account_creation()
-        self.set_bank_account(input("Please enter your bank account number: "))
-        self.set_routing_number(input("Please enter your routing number: "))
+        while True:
+            try:
+                bank_account = input("Please enter your bank account number: ")
+                if not re.match(r"^\d+$", bank_account):
+                    raise ValueError("Invalid bank account number. Please enter digits only.")
+                self.set_bank_account(bank_account)
+                break
+            except ValueError as e:
+                print(e)
+
+        while True:
+            try:
+                routing_number = input("Please enter your routing number: ")
+                if not re.match(r"^\d+$", routing_number):
+                    raise ValueError("Invalid routing number. Please enter digits only.")
+                self.set_routing_number(routing_number)
+                break
+            except ValueError as e:
+                print(e)
 
     def list_item(self):
         item_id = input("Enter item ID: ")

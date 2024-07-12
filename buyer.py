@@ -8,4 +8,11 @@ class Buyer(User):
 
     def account_creation(self):
         super().account_creation()
-        self.shipping_address = input("Please enter your shipping address: ")
+        while True:
+            try:
+                self.shipping_address = input("Please enter your shipping address: ")
+                if not self.shipping_address:
+                    raise ValueError("Shipping address cannot be empty.")
+                break
+            except ValueError as e:
+                print(e)

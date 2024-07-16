@@ -84,21 +84,23 @@ def seller_actions():
 
 
 def buyer_menu():
-    print("1. View items")
-    print("2. Add item to cart")
-    print("3. Remove item from cart")
-    print("4. View cart")
-    print("5. Checkout")
+    print("1. View items up for auction")
+    print("2. Place a bid on an item")
+    print("3. View your bids")
+    print("4. View auction results")
+    print("5. Leave feedback")
     print("6. Log out")
     print("Please enter a number to select an option:")
 
 
 def seller_menu():
-    print("1. View items")
-    print("2. Add item")
-    print("3. Edit item")
-    print("4. Delete item")
-    print("5. Log out")
+    print("1. List an item for auction")
+    print("2. View your listed items")
+    print("3. Edit a listed item")
+    print("4. Remove a listed item")
+    print("5. View auction results for your items")
+    print("6. Leave feedback")
+    print("7. Log out")
     print("Please enter a number to select an option:")
 
 

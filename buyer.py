@@ -45,6 +45,9 @@ class Buyer(User):
             print(f"Item ID: {item_id}, Bid Amount: {bid_amount}")
 
     def view_auction_results(self, items):
+        if not items:
+            print("No bids found.")
+            return
         for item in items:
             if item['highest_bidder'] == self.email:
                 print(f"Congratulations! You won the auction for {item['item_title']} "

@@ -5,7 +5,6 @@ class Buyer(User):
     def __init__(self, name, email, password, home_address, phone_number, shipping_address):
         super().__init__(name, email, password, home_address, phone_number)
         self.shipping_address = shipping_address
-        self.cart = []
         self.bids = {}
 
     def account_creation(self):
@@ -21,25 +20,10 @@ class Buyer(User):
 
     @staticmethod
     def view_items(items):
-        if items is None:
+        if not items:
             print("No items found.")
+            return
         for item in items:
-            print(f"Item ID: {item['item_id']}, Title: {item['item_title']}, Current Bid: {item['current_bid']}")
-
-    def add_to_cart(self, item):
-        self.cart.append(item)
-        print(f"Item {item['item_title']} added to cart.")
-
-    def remove_from_cart(self, item_id):
-        for item in self.cart:
-            if item['item_id'] == item_id:
-                self.cart.remove(item)
-                print(f"Item {item['item_title']} removed from cart.")
-                return
-        print("Item not found in cart.")
-
-    def view_cart(self):
-        for item in self.cart:
             print(f"Item ID: {item['item_id']}, Title: {item['item_title']}, Current Bid: {item['current_bid']}")
 
     def place_bid(self, item, bid_amount):
@@ -51,9 +35,21 @@ class Buyer(User):
         self.bids[item['item_id']] = bid_amount
         print(f"Bid placed on item {item['item_title']} for {bid_amount}.")
 
-    def checkout(self):
-        for item in self.cart:
+    def view_bids(self):
+        if not self.bids:
+            print("No bids placed yet.")
+            return
+        for item_id, bid_amount in self.bids.items():
+            print(f"Item ID: {item_id}, Bid Amount: {bid_amount}")
+
+    def view_auction_results(self, items):
+        for item in items:
             if item['highest_bidder'] == self.email:
-                print(f"Proceeding to transaction for item {item['item_title']} at {item['current_bid']}.")
+                print(f"Congratulations! You won the auction for {item['item_title']} with a bid of {item['current_bid']}.")
             else:
-                print(f"Cannot proceed with transaction. You are not the highest bidder for item {item['item_title']}.")
+                print(f"You did not win the auction for {item['item_title']}.")
+
+    def leave_feedback(self):
+        item_id = input("Enter the item ID for which you want to leave feedback: ")
+        feedback = input("Enter your feedback: ")
+        print(f"Feedback for item {item_id}: {feedback}")

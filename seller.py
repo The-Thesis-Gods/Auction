@@ -1,8 +1,6 @@
-# seller.py
-
 from user import User
 import re
-
+import uuid
 
 class Seller(User):
     def __init__(self, name, email, password, home_address, phone_number, bank_account, routing_number):
@@ -45,8 +43,14 @@ class Seller(User):
             except ValueError as e:
                 print(e)
 
+    def generate_unique_item_id(self):
+        while True:
+            item_id = str(uuid.uuid4())
+            if not any(item['item_id'] == item_id for item in self.items):
+                return item_id
+
     def list_item(self):
-        item_id = input("Enter item ID: ")
+        item_id = self.generate_unique_item_id()
         item_title = input("Enter item title: ")
         item_description = input("Enter item description: ")
         starting_price = float(input("Enter starting bid price: "))
@@ -70,3 +74,73 @@ class Seller(User):
 
         self.items.append(item)
         print("Item listed successfully!")
+
+    def view_items(self):
+        if not self.items:
+            print("No items listed.")
+            return
+        for item in self.items:
+            print(f"ID: {item['item_id']}, Title: {item['item_title']}, Description: {item['item_description']}, "
+                  f"Starting Price: {item['starting_price']}, Current Bid: {item['current_bid']}, "
+                  f"Highest Bidder: {item['highest_bidder']}, Start Date: {item['start_date']}, End Date: {item['end_date']}")
+
+    def edit_item(self):
+        item_id = input("Enter the item ID of the item you want to edit: ")
+        for item in self.items:
+            if item['item_id'] == item_id:
+                item['item_title'] = input("Enter new item title: ")
+                item['item_description'] = input("Enter new item description: ")
+                item['starting_price'] = float(input("Enter new starting price: "))
+                item['min_increment_bid'] = float(input("Enter new minimum increment bid: "))
+                item['auto_buy_price'] = float(input("Enter new auto buy price: "))
+                item['start_date'] = input("Enter new start date (YYYY-MM-DD): ")
+                item['end_date'] = input("Enter new end date (YYYY-MM-DD): ")
+                print("Item updated successfully!")
+                return
+        print("Item not found.")
+
+    def remove_item(self):
+        item_id = input("Enter the item ID of the item you want to remove: ")
+        for item in self.items:
+            if item['item_id'] == item_id:
+                self.items.remove(item)
+                print("Item removed successfully!")
+                return
+        print("Item not found.")
+
+    def view_auction_results(self):
+        for item in self.items:
+            print(f"ID: {item['item_id']}, Title: {item['item_title']}, Highest Bid: {item['current_bid']}, "
+                  f"Highest Bidder: {item['highest_bidder']}")
+
+    def leave_feedback(self, feedback_system):
+        feedback_system.leave_feedback(self.email)
+
+def seller_menu(seller, feedback_system):
+    while True:
+        print("1. List an item for auction")
+        print("2. View your listed items")
+        print("3. Edit a listed item")
+        print("4. Remove a listed item")
+        print("5. View auction results for your items")
+        print("6. Leave feedback")
+        print("7. Log out")
+        choice = input("Please enter a number to select an option: ")
+        
+        if choice == '1':
+            seller.list_item()
+        elif choice == '2':
+            seller.view_items()
+        elif choice == '3':
+            seller.edit_item()
+        elif choice == '4':
+            seller.remove_item()
+        elif choice == '5':
+            seller.view_auction_results()
+        elif choice == '6':
+            seller.leave_feedback(feedback_system)
+        elif choice == '7':
+            print("Logging out...")
+            break
+        else:
+            print("Invalid choice. Please try again.")

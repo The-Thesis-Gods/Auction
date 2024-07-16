@@ -120,7 +120,7 @@ def seller_actions(seller):
         elif choice == '5':
             seller.view_auction_results()
         #elif choice == '6':
-            #seller.leave_feedback(feedback_system)
+           #seller.leave_feedback(feedback_system)
         elif choice == '7':
             print("Logging out...")
             break

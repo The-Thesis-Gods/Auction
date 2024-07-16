@@ -1,4 +1,3 @@
-from main import find_item_by_id
 from feedback import FeedbackSystem
 from user import User
 

@@ -1,9 +1,13 @@
 import buyer as customer
 import seller as merchant
-#from feedback import FeedbackSystem
+
+# from feedback import FeedbackSystem
 
 users = {}  # Global dictionary to store users
-#feedback_system = FeedbackSystem()  # Global feedback system
+
+
+# feedback_system = FeedbackSystem()  # Global feedback system
+
 
 def main():
     # Add admin users
@@ -108,7 +112,7 @@ def seller_actions(seller):
         print("6. Leave feedback")
         print("7. Log out")
         choice = input("Please enter a number to select an option: ")
-        
+
         if choice == '1':
             seller.list_item()
         elif choice == '2':
@@ -119,8 +123,8 @@ def seller_actions(seller):
             seller.remove_item()
         elif choice == '5':
             seller.view_auction_results()
-        #elif choice == '6':
-           #seller.leave_feedback(feedback_system)
+        # elif choice == '6':
+        # seller.leave_feedback(feedback_system)
         elif choice == '7':
             print("Logging out...")
             break

@@ -2,6 +2,7 @@ from user import User
 import re
 import uuid
 
+
 class Seller(User):
     def __init__(self, name, email, password, home_address, phone_number, bank_account, routing_number):
         super().__init__(name, email, password, home_address, phone_number)
@@ -80,9 +81,13 @@ class Seller(User):
             print("No items listed.")
             return
         for item in self.items:
-            print(f"ID: {item['item_id']}, Title: {item['item_title']}, Description: {item['item_description']}, "
-                  f"Starting Price: {item['starting_price']}, Current Bid: {item['current_bid']}, "
-                  f"Highest Bidder: {item['highest_bidder']}, Start Date: {item['start_date']}, End Date: {item['end_date']}")
+            print(f"ID: {item['item_id']}, Title: {item['item_title']}, "
+                  f"Description: {item['item_description']}, "
+                  f"Starting Price: {item['starting_price']}, "
+                  f"Current Bid: {item['current_bid']}, "
+                  f"Highest Bidder: {item['highest_bidder']}, "
+                  f"Start Date: {item['start_date']}, "
+                  f"End Date: {item['end_date']}")
 
     def edit_item(self):
         item_id = input("Enter the item ID of the item you want to edit: ")

@@ -2,6 +2,7 @@ from user import User
 import re
 import random
 
+
 class Seller(User):
     def __init__(self, name, email, password, home_address, phone_number, bank_account, routing_number):
         super().__init__(name, email, password, home_address, phone_number)
@@ -80,9 +81,12 @@ class Seller(User):
             print("No items listed.")
             return
         for item in self.items:
-            print(f"ID: {item['item_id']}\n Title: {item['item_title']}\n Description: {item['item_description']} "
-                  f"\nStarting Price: {item['starting_price']}\n Current Bid: {item['current_bid']}, "
-                  f"\nHighest Bidder: {item['highest_bidder']}\n Start Date: {item['start_date']}\n End Date: {item['end_date']}")
+            print(f"ID: {item['item_id']}\n Title: {item['item_title']}\n "
+                  f"Description: {item['item_description']} "
+                  f"\nStarting Price: {item['starting_price']}\n "
+                  f"Current Bid: {item['current_bid']}, "
+                  f"\nHighest Bidder: {item['highest_bidder']}\n "
+                  f"Start Date: {item['start_date']}\n End Date: {item['end_date']}")
 
     def edit_item(self):
         item_id = input("Enter the item ID of the item you want to edit: ")

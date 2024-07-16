@@ -25,7 +25,7 @@ class Buyer(User):
             print(f"Item ID: {item['item_id']}")
             print(f"Title: {item['item_title']}")
             print(f"Current Bid: {item['current_bid']}")
-            print(f"Highest Bid: {item['auto_buy_price']}")
+            print(f"Auto buy Bid: {item['auto_buy_price']}")
             print(f"Description: {item['item_description']}")
 
     def place_bid(self, item, bid_amount):
@@ -33,9 +33,10 @@ class Buyer(User):
             print("Bid amount must be higher than the current bid.")
             return
 
-        if 'highest_bidder' in item:
-            if item['highest_bidder'] == self.email:
-                print("You already have the highest bid for this item.")
+        if item['item_id'] in self.bids:
+            previous_bid = self.bids[item['item_id']]
+            if bid_amount <= previous_bid:
+                print(f"Your new bid must be higher than your previous bid of {previous_bid}.")
                 return
 
         min_increment_bid = item['min_increment_bid']
@@ -66,10 +67,11 @@ class Buyer(User):
             print("No bids found.")
             return
         for item in items:
-            if item['highest_bidder'] == self.email:
-                print(f"Congratulations! You won the auction for {item['item_title']} with a bid of {item['current_bid']}.")
-            else:
-                print(f"You did not win the auction for {item['item_title']}.")
+            if item['item_id'] in self.bids:
+                if item['highest_bidder'] == self.email:
+                    print(f"Congratulations! You won the auction for {item['item_title']} with a bid of {item['current_bid']}.")
+                else:
+                    print(f"You did not win the auction for {item['item_title']}.")
 
     @staticmethod
     def leave_feedback():

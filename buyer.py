@@ -1,5 +1,6 @@
 from user import User
 
+
 class Buyer(User):
     def __init__(self, name, email, password, home_address, phone_number, shipping_address):
         super().__init__(name, email, password, home_address, phone_number)
@@ -49,11 +50,13 @@ class Buyer(User):
             return
         for item in items:
             if item['highest_bidder'] == self.email:
-                print(f"Congratulations! You won the auction for {item['item_title']} with a bid of {item['current_bid']}.")
+                print(f"Congratulations! You won the auction for {item['item_title']} "
+                      f"with a bid of {item['current_bid']}.")
             else:
                 print(f"You did not win the auction for {item['item_title']}.")
 
-    def leave_feedback(self):
+    @staticmethod
+    def leave_feedback():
         item_id = input("Enter the item ID for which you want to leave feedback: ")
         feedback = input("Enter your feedback: ")
         print(f"Feedback for item {item_id}: {feedback}")

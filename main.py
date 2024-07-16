@@ -3,7 +3,7 @@ import seller as merchant
 #from feedback import FeedbackSystem
 
 users = {}  # Global dictionary to store users
-feedback_system = FeedbackSystem()  # Global feedback system
+#feedback_system = FeedbackSystem()  # Global feedback system
 
 def main():
     # Add admin users

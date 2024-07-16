@@ -1,5 +1,3 @@
-# buyer.py
-
 from user import User
 
 class Buyer(User):
@@ -21,6 +19,9 @@ class Buyer(User):
                 print(e)
 
     def view_items(self, items):
+        if items == []:
+            print("No items found.")
+        
         for item in items:
             print(f"Item ID: {item['item_id']}, Title: {item['item_title']}, Current Bid: {item['current_bid']}")
 

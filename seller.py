@@ -115,32 +115,3 @@ class Seller(User):
 
     def leave_feedback(self, feedback_system):
         feedback_system.leave_feedback(self.email)
-
-def seller_menu(seller, feedback_system):
-    while True:
-        print("1. List an item for auction")
-        print("2. View your listed items")
-        print("3. Edit a listed item")
-        print("4. Remove a listed item")
-        print("5. View auction results for your items")
-        print("6. Leave feedback")
-        print("7. Log out")
-        choice = input("Please enter a number to select an option: ")
-        
-        if choice == '1':
-            seller.list_item()
-        elif choice == '2':
-            seller.view_items()
-        elif choice == '3':
-            seller.edit_item()
-        elif choice == '4':
-            seller.remove_item()
-        elif choice == '5':
-            seller.view_auction_results()
-        elif choice == '6':
-            seller.leave_feedback(feedback_system)
-        elif choice == '7':
-            print("Logging out...")
-            break
-        else:
-            print("Invalid choice. Please try again.")

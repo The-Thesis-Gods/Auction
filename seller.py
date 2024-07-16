@@ -1,6 +1,7 @@
+# seller.py
+
 from user import User
 import re
-
 
 class Seller(User):
     def __init__(self, name, email, password, home_address, phone_number, bank_account, routing_number):
@@ -47,9 +48,9 @@ class Seller(User):
         item_id = input("Enter item ID: ")
         item_title = input("Enter item title: ")
         item_description = input("Enter item description: ")
-        starting_price = float(input("Enter starting price: "))
+        starting_price = float(input("Enter starting bid price: "))
         min_increment_bid = float(input("Enter minimum increment bid: "))
-        auto_buy_price = float(input("Enter auto buy price: "))
+        auto_buy_price = float(input("Enter auto buy price (maximum bid): "))
         start_date = input("Enter start date (YYYY-MM-DD): ")
         end_date = input("Enter end date (YYYY-MM-DD): ")
 

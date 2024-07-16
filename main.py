@@ -1,8 +1,6 @@
 import buyer as customer
 import seller as merchant
 
-# test
-
 
 users = {}  # Global dictionary to store users
 

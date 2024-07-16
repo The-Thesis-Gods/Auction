@@ -1,6 +1,5 @@
 from user import User
 
-
 class Buyer(User):
     def __init__(self, name, email, password, home_address, phone_number, shipping_address):
         super().__init__(name, email, password, home_address, phone_number)
@@ -18,24 +17,42 @@ class Buyer(User):
             except ValueError as e:
                 print(e)
 
-    @staticmethod
-    def view_items(items):
+    def view_items(self, items):
         if not items:
             print("No items found.")
             return
         for item in items:
-            print(f"Item ID: {item['item_id']}") 
+            print(f"Item ID: {item['item_id']}")
             print(f"Title: {item['item_title']}")
             print(f"Current Bid: {item['current_bid']}")
+            print(f"Highest Bid: {item['auto_buy_price']}")
+            print(f"Description: {item['item_description']}")
 
     def place_bid(self, item, bid_amount):
         if bid_amount <= item['current_bid']:
             print("Bid amount must be higher than the current bid.")
             return
-        item['current_bid'] = bid_amount
-        item['highest_bidder'] = self.email
-        self.bids[item['item_id']] = bid_amount
-        print(f"Bid placed on item {item['item_title']} for {bid_amount}.")
+
+        if 'highest_bidder' in item:
+            if item['highest_bidder'] == self.email:
+                print("You already have the highest bid for this item.")
+                return
+
+        min_increment_bid = item['min_increment_bid']
+        if bid_amount < item['current_bid'] + min_increment_bid:
+            print(f"Bid amount must be at least {min_increment_bid} higher than the current bid.")
+            return
+
+        if bid_amount >= item['auto_buy_price']:
+            item['current_bid'] = item['auto_buy_price']
+            item['highest_bidder'] = self.email
+            self.bids[item['item_id']] = item['auto_buy_price']
+            print(f"Congratulations! You've won the item {item['item_title']} with an auto-buy bid of {item['auto_buy_price']}.")
+        else:
+            item['current_bid'] = bid_amount
+            item['highest_bidder'] = self.email
+            self.bids[item['item_id']] = bid_amount
+            print(f"Bid placed on item {item['item_title']} for {bid_amount}.")
 
     def view_bids(self):
         if not self.bids:
@@ -50,8 +67,7 @@ class Buyer(User):
             return
         for item in items:
             if item['highest_bidder'] == self.email:
-                print(f"Congratulations! You won the auction for {item['item_title']} "
-                      f"with a bid of {item['current_bid']}.")
+                print(f"Congratulations! You won the auction for {item['item_title']} with a bid of {item['current_bid']}.")
             else:
                 print(f"You did not win the auction for {item['item_title']}.")
 

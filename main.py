@@ -91,7 +91,7 @@ def buyer_actions(buyer):
         elif choice == "3":
             buyer.view_bids()
         elif choice == "4":
-            items = get_all_items()
+            items = get_buyer_items(buyer)
             buyer.view_auction_results(items)
         elif choice == "5":
             buyer.leave_feedback()
@@ -151,6 +151,12 @@ def seller_menu():
     print("6. Leave feedback")
     print("7. Log out")
     print("Please enter a number to select an option:", end=" ")
+
+
+def get_buyer_items(buyer):
+    all_items = get_all_items()
+    buyer_items = [item for item in all_items if item['item_id'] in buyer.bids]
+    return buyer_items
 
 
 def get_all_items():

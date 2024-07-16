@@ -19,12 +19,14 @@ class Buyer(User):
                 print(e)
 
     @staticmethod
-    def view_items(items):
+    def view_items(self,items):
         if not items:
             print("No items found.")
             return
         for item in items:
-            print(f"Item ID: {item['item_id']}, Title: {item['item_title']}, Current Bid: {item['current_bid']}")
+            print(f"Item ID: {item['item_id']}") 
+            print(f"Title: {item['item_title']}")
+            print(f"Current Bid: {item['current_bid']}")
 
     def place_bid(self, item, bid_amount):
         if bid_amount <= item['current_bid']:

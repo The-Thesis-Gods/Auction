@@ -1,5 +1,6 @@
 from user import User
 
+
 class Buyer(User):
     def __init__(self, name, email, password, home_address, phone_number, shipping_address):
         super().__init__(name, email, password, home_address, phone_number)
@@ -18,10 +19,10 @@ class Buyer(User):
             except ValueError as e:
                 print(e)
 
-    def view_items(self, items):
-        if items == []:
+    @staticmethod
+    def view_items(items):
+        if items is None:
             print("No items found.")
-        
         for item in items:
             print(f"Item ID: {item['item_id']}, Title: {item['item_title']}, Current Bid: {item['current_bid']}")
 

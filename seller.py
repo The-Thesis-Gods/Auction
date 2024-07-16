@@ -1,7 +1,6 @@
 from user import User
 import re
-import uuid
-
+import random
 
 class Seller(User):
     def __init__(self, name, email, password, home_address, phone_number, bank_account, routing_number):
@@ -46,7 +45,7 @@ class Seller(User):
 
     def generate_unique_item_id(self):
         while True:
-            item_id = str(uuid.uuid4())
+            item_id = '{:04d}'.format(random.randint(0, 9999))
             if not any(item['item_id'] == item_id for item in self.items):
                 return item_id
 
@@ -81,13 +80,9 @@ class Seller(User):
             print("No items listed.")
             return
         for item in self.items:
-            print(f"ID: {item['item_id']}, Title: {item['item_title']}, "
-                  f"Description: {item['item_description']}, "
-                  f"Starting Price: {item['starting_price']}, "
-                  f"Current Bid: {item['current_bid']}, "
-                  f"Highest Bidder: {item['highest_bidder']}, "
-                  f"Start Date: {item['start_date']}, "
-                  f"End Date: {item['end_date']}")
+            print(f"ID: {item['item_id']}\n Title: {item['item_title']}\n Description: {item['item_description']} "
+                  f"\nStarting Price: {item['starting_price']}\n Current Bid: {item['current_bid']}, "
+                  f"\nHighest Bidder: {item['highest_bidder']}\n Start Date: {item['start_date']}\n End Date: {item['end_date']}")
 
     def edit_item(self):
         item_id = input("Enter the item ID of the item you want to edit: ")
@@ -115,8 +110,8 @@ class Seller(User):
 
     def view_auction_results(self):
         for item in self.items:
-            print(f"ID: {item['item_id']}, Title: {item['item_title']}, Highest Bid: {item['current_bid']}, "
-                  f"Highest Bidder: {item['highest_bidder']}")
+            print(f"ID: {item['item_id']}\n Title: {item['item_title']}\n Highest Bid: {item['current_bid']} "
+                  f"\nHighest Bidder: {item['highest_bidder']}")
 
     def leave_feedback(self, feedback_system):
         feedback_system.leave_feedback(self.email)

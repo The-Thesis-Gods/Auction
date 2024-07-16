@@ -99,7 +99,7 @@ def seller_menu():
     print("5. View auction results for your items")
     print("6. Leave feedback")
     print("7. Log out")
-    print("Please enter a number to select an option:")
+    print("Please enter a number to select an option:", end = " ")
 
 
 if __name__ == '__main__':

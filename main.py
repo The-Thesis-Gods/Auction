@@ -32,14 +32,14 @@ def main_menu():
     print("1. Create an account")
     print("2. Log in")
     print("3. Exit")
-    print("Please enter a number to select an option:")
+    print("Please enter a number to select an option:", end=" ")
 
 
 def create_account():
     print("Are you a buyer or a seller?")
     print("1. Buyer")
     print("2. Seller")
-    user_input = input()
+    user_input = input("Enter your choice (1 or 2): ")
     if user_input == "1":
         buyer = customer.Buyer("", "", "", "", "", "")
         buyer.account_creation()
@@ -55,10 +55,8 @@ def create_account():
 
 
 def login():
-    print("Please enter your email:")
-    email = input()
-    print("Please enter your password:")
-    password = input()
+    email = input("Please enter your email: ")
+    password = input("Please enter your password: ")
     user = users.get(email)
     if user and user.get_password() == password:
         print(f"Welcome back, {user.name}!")
@@ -90,7 +88,7 @@ def buyer_menu():
     print("4. View cart")
     print("5. Checkout")
     print("6. Log out")
-    print("Please enter a number to select an option:")
+    print("Please enter a number to select an option:", end = " ")
 
 
 def seller_menu():

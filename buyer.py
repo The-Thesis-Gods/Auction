@@ -1,5 +1,3 @@
-# buyer.py
-
 from user import User
 
 
@@ -23,6 +21,8 @@ class Buyer(User):
 
     @staticmethod
     def view_items(items):
+        if items is None:
+            print("No items found.")
         for item in items:
             print(f"Item ID: {item['item_id']}, Title: {item['item_title']}, Current Bid: {item['current_bid']}")
 

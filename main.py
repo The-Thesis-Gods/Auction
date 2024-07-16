@@ -5,6 +5,14 @@ users = {}  # Global dictionary to store users
 
 
 def main():
+
+    # add admin users
+    admin_seller = merchant.Seller("Seller Admin", "seller@email.com", "1234", "", "", "", "")
+    users[admin_seller.email] = admin_seller
+
+    admin_buyer = customer.Buyer("Buyer Admin", "buyer@email.com", "1234", "", "", "")
+    users[admin_buyer.email] = admin_buyer
+
     print("Welcome to the online marketplace!")
     while True:
         main_menu()

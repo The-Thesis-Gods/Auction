@@ -74,22 +74,23 @@ def buyer_actions(buyer):
         buyer_menu()
         choice = input()
         if choice == "1":
-            buyer.view_items()
+            items = get_all_items()
+            buyer.view_items(items)
         elif choice == "2":
-            item_id = input("Enter the item ID to add to cart: ")
-            # Assuming a function `find_item_by_id` that returns the item by ID
+            item_id = input("Enter the item ID to place a bid: ")
             item = find_item_by_id(item_id)
             if item:
-                buyer.add_to_cart(item)
+                bid_amount = float(input(f"Enter your bid amount (current bid is {item['current_bid']}): "))
+                buyer.place_bid(item, bid_amount)
             else:
                 print("Item not found.")
         elif choice == "3":
-            item_id = input("Enter the item ID to remove from cart: ")
-            buyer.remove_from_cart(item_id)
+            buyer.view_bids()
         elif choice == "4":
-            buyer.view_cart()
+            items = get_all_items()
+            buyer.view_auction_results(items)
         elif choice == "5":
-            buyer.checkout()
+            buyer.leave_feedback()
         elif choice == "6":
             print("Logging out...")
             break
@@ -129,10 +130,10 @@ def seller_actions(seller):
 
 def buyer_menu():
     print("1. View items")
-    print("2. Add item to cart")
-    print("3. Remove item from cart")
-    print("4. View cart")
-    print("5. Checkout")
+    print("2. Place a bid")
+    print("3. View your bids")
+    print("4. View auction results")
+    print("5. Leave feedback")
     print("6. Log out")
     print("Please enter a number to select an option:", end=" ")
 
@@ -148,13 +149,18 @@ def seller_menu():
     print("Please enter a number to select an option:", end=" ")
 
 
-def find_item_by_id(item_id):
-    # Placeholder function to find an item by ID
+def get_all_items():
+    all_items = []
     for user in users.values():
         if isinstance(user, merchant.Seller):
-            for item in user.items:
-                if item['item_id'] == item_id:
-                    return item
+            all_items.extend(user.items)
+    return all_items
+
+
+def find_item_by_id(item_id):
+    for item in get_all_items():
+        if item['item_id'] == item_id:
+            return item
     return None
 
 

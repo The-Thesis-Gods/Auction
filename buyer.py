@@ -1,6 +1,5 @@
 from user import User
 
-
 class Buyer(User):
     def __init__(self, name, email, password, home_address, phone_number, shipping_address):
         super().__init__(name, email, password, home_address, phone_number)
@@ -19,7 +18,7 @@ class Buyer(User):
                 print(e)
 
     @staticmethod
-    def view_items(self,items):
+    def view_items(items):
         if not items:
             print("No items found.")
             return

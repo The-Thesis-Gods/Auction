@@ -1,12 +1,11 @@
 import buyer as customer
 import seller as merchant
 
-# from feedback import FeedbackSystem
+from feedback import FeedbackSystem
+
+feedback_system = FeedbackSystem()  # Global feedback system
 
 users = {}  # Global dictionary to store users
-
-
-# feedback_system = FeedbackSystem()  # Global feedback system
 
 
 def main():
@@ -17,7 +16,6 @@ def main():
     admin_buyer = customer.Buyer("Buyer Admin", "buyer@email.com", "1234", "", "", "")
     users[admin_buyer.email] = admin_buyer
 
-    print("Welcome to the online marketplace!")
     while True:
         main_menu()
         user_input = input()
@@ -29,10 +27,11 @@ def main():
             print("Thank you for visiting the online marketplace. Goodbye!")
             break
         else:
-            print("Invalid input. Please try again.")
+            print("Invalid input. Please try again.\n")
 
 
 def main_menu():
+    print("\nWelcome to the online marketplace!")
     print("1. Create an account")
     print("2. Log in")
     print("3. Exit")
@@ -40,96 +39,102 @@ def main_menu():
 
 
 def create_account():
-    print("Are you a buyer or a seller?")
+    print("\nAre you a buyer or a seller?")
     print("1. Buyer")
     print("2. Seller")
-    user_input = input("Enter your choice (1 or 2): ")
+    user_input = input("Enter your choice (1 or 2): ").strip()
     if user_input == "1":
         buyer = customer.Buyer("", "", "", "", "", "")
-        buyer.account_creation()
-        users[buyer.email] = buyer
-        print("Buyer account created successfully!")
+        try:
+            buyer.account_creation()
+            users[buyer.email] = buyer
+            print("Buyer account created successfully!\n")
+        except Exception as e:
+            print(f"Failed to create buyer account: {e}\n")
     elif user_input == "2":
         seller = merchant.Seller("", "", "", "", "", "", "")
-        seller.account_creation()
-        users[seller.email] = seller
-        print("Seller account created successfully!")
+        try:
+            seller.account_creation()
+            users[seller.email] = seller
+            print("Seller account created successfully!\n")
+        except Exception as e:
+            print(f"Failed to create seller account: {e}\n")
     else:
-        print("Invalid input. Please try again.")
+        print("Invalid input. Please try again.\n")
 
 
 def login():
-    email = input("Please enter your email: ")
-    password = input("Please enter your password: ")
+    email = input("\nPlease enter your email: ").strip()
+    password = input("Please enter your password: ").strip()
     user = users.get(email)
     if user and user.get_password() == password:
-        print(f"Welcome back, {user.name}!")
-
-        if isinstance(user, customer.Buyer):
-            buyer_actions(user)
-        elif isinstance(user, merchant.Seller):
-            seller_actions(user)
+        print(f"\nWelcome back, {user.name}!")
+        try:
+            if isinstance(user, customer.Buyer):
+                buyer_actions(user)
+            elif isinstance(user, merchant.Seller):
+                seller_actions(user)
+        except Exception as e:
+            print(f"Error during user session: {e}\n")
     else:
-        print("Invalid email or password. Please try again.")
+        print("Invalid email or password. Please try again.\n")
 
 
 def buyer_actions(buyer):
     while True:
         buyer_menu()
-        choice = input()
+        choice = input().strip()
         if choice == "1":
             items = get_all_items()
             buyer.view_items(items)
         elif choice == "2":
-            item_id = input("Enter the item ID to place a bid: ")
+            item_id = input("Enter the item ID to place a bid: ").strip()
             item = find_item_by_id(item_id)
             if item:
-                bid_amount = float(input(f"Enter your bid amount (current bid is {item['current_bid']}): "))
-                buyer.place_bid(item, bid_amount)
+                try:
+                    bid_amount = float(input(f"Enter your bid amount (current bid is {item['current_bid']}): "))
+                    buyer.place_bid(item, bid_amount)
+                except ValueError:
+                    print("Invalid bid amount. Please enter a valid number.\n")
             else:
-                print("Item not found.")
+                print("Item not found.\n")
         elif choice == "3":
             buyer.view_bids()
         elif choice == "4":
             items = get_buyer_items(buyer)
             buyer.view_auction_results(items)
         elif choice == "5":
-            buyer.leave_feedback()
+            item_id = input("\nEnter the item ID for which you want to leave feedback: ").strip()
+            item = find_item_by_id(item_id)
+            buyer.leave_feedback(item, item_id)
         elif choice == "6":
-            print("Logging out...")
+            print("Logging out...\n")
             break
         else:
-            print("Invalid input. Please try again.")
+            print("Invalid input. Please try again.\n")
 
 
 def seller_actions(seller):
     while True:
-        print("1. List an item for auction")
-        print("2. View your listed items")
-        print("3. Edit a listed item")
-        print("4. Remove a listed item")
-        print("5. View auction results for your items")
-        print("6. Leave feedback")
-        print("7. Log out")
-        choice = input("Please enter a number to select an option: ")
-
-        if choice == '1':
+        seller_menu()
+        choice = input().strip()
+        if choice == "1":
             seller.list_item()
-        elif choice == '2':
+        elif choice == "2":
             seller.view_items()
-        elif choice == '3':
+        elif choice == "3":
             seller.edit_item()
-        elif choice == '4':
+        elif choice == "4":
             seller.remove_item()
-        elif choice == '5':
+        elif choice == "5":
             seller.view_auction_results()
-        # elif choice == '6':
-        # seller.leave_feedback(feedback_system)
-        elif choice == '7':
-            print("Logging out...")
+        elif choice == "6":
+            seller.leave_feedback()
+        elif choice == "7":
+            print("Logging out...\n")
             break
         else:
-            print("Invalid choice. Please try again.")
+            print("Invalid choice. Please try again.\n")
 
 
 def buyer_menu():

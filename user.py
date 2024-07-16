@@ -20,7 +20,7 @@ class User:
     def account_creation(self):
         while True:
             try:
-                self.name = input("Please enter your name: ")
+                self.name = input("\nPlease enter your name: ")
                 if not self.name:
                     raise ValueError("Name cannot be empty.")
                 break

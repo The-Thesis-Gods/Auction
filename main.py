@@ -74,27 +74,20 @@ def buyer_actions(buyer):
         buyer_menu()
         choice = input()
         if choice == "1":
-            buyer.view_items()
+            buyer.view_items(items)
         elif choice == "2":
-            item_id = input("Enter the item ID to add to cart: ")
-            # Assuming a function `find_item_by_id` that returns the item by ID
-            item = find_item_by_id(item_id)
-            if item:
-                buyer.add_to_cart(item)
-            else:
-                print("Item not found.")
+            buyer.place_bid(items)
         elif choice == "3":
-            item_id = input("Enter the item ID to remove from cart: ")
-            buyer.remove_from_cart(item_id)
+            buyer.view_bids()
         elif choice == "4":
-            buyer.view_cart()
+            buyer.view_auction_results(items)
         elif choice == "5":
-            buyer.checkout()
+            buyer.leave_feedback(feedback_system)
         elif choice == "6":
             print("Logging out...")
             break
         else:
-            print("Invalid input. Please try again.")
+            print("Invalid choice. Please try again.")
 
 
 def seller_actions(seller):
